@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.square{
+    border-style: solid;
+    width: 50px;
+    height: 50px;
+    border-width: 1px;
+}
+
+
+.square:hover {
+    background-color: black;
+}
