@@ -1,19 +1,43 @@
 function createGrid(size) {
+    sizeStr = String(Math.round(500/size))+'px';
+
     let sketchpad = document.getElementById("sketchpad")
-    console.log(size);
     sketchpad.innerHTML = ''
     for(let i = 0; i < size; i++){
         sketchpad.innerHTML += '<div class = "row" ></div>';
     }
 
     rowArray = document.getElementsByClassName("row")
-    console.log(rowArray)
     for(k = 0; k < size; k++){
         for(let j = 0; j < size; j++){
             rowArray[k].innerHTML += '<div class = "square" ></div>';
         }
     }
 
+    const squares = document.querySelectorAll("div.square");
+    var isMouseDown = false;
+
+    document.addEventListener('mousedown', (e)=> {
+        isMouseDown = true;
+        e.preventDefault();
+    })
+
+    document.addEventListener('mouseup', () => {
+        isMouseDown = false;
+    })
+
+    squares.forEach((square) => {
+        square.style.width = sizeStr
+        square.style.height = sizeStr
+        square.addEventListener('mouseover', () => {
+            if(isMouseDown){
+                square.style.backgroundColor = "red"
+            }
+        })
+        square.addEventListener('mousedown', ()=> {
+            square.style.backgroundColor = "red"
+        })
+    })
 }
 
 
@@ -31,40 +55,6 @@ function getSize(){
 }
 
 createGrid(8);
-createSquares();
-
-
-
-
-
-function createSquares() {
-    const squares = document.querySelectorAll("div.square")
-    var isMouseDown = false
-
-    document.getElementById("sketchpad").addEventListener('mouseleave', () => {
-        isMouseDown = false;
-    })
-
-    squares.forEach((square) => {
-        square.addEventListener('mouseover', () => {
-            square.addEventListener('mousedown', () => {
-                isMouseDown = true;
-                square.style.backgroundColor = "black";
-            })
-    
-            square.addEventListener('mouseup', () => {
-                isMouseDown = false;
-            })
-    
-            square.addEventListener('mousemove', () =>{
-                if(isMouseDown){
-                    square.style.backgroundColor = "black";
-                }
-            }) 
-        })
-    })
-}
-
 
 document.getElementById("changeSize").addEventListener('click', ()=> {
     createGrid(getSize());
