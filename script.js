@@ -31,11 +31,21 @@ function createGrid(size) {
         square.style.height = sizeStr
         square.addEventListener('mouseover', () => {
             if(isMouseDown){
-                square.style.backgroundColor = "red"
+                if(random){
+                    square.style.backgroundColor ="#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
+                }
+                else{
+                    square.style.backgroundColor = color
+                }
             }
         })
         square.addEventListener('mousedown', ()=> {
-            square.style.backgroundColor = "red"
+            if(random){
+                square.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
+            }
+            else{
+                square.style.backgroundColor = color
+            }
         })
     })
 }
@@ -49,14 +59,38 @@ function getSize(){
             return size;
         }
     }
-    else{
-        alert("Please enter a valid integer from range 1-100!")
-    }
+    alert("Please enter a valid integer from range 1-100!")
+    
 }
+
+function clear(){
+    let squares = document.querySelectorAll("div.square");
+    squares.forEach((square) => {
+        square.style.backgroundColor = "white"
+    })
+
+}
+
+var color = "#0000ff";
+var random = false;
 
 createGrid(8);
 
 document.getElementById("changeSize").addEventListener('click', ()=> {
-    createGrid(getSize());
-    createSquares();
+    let gridSize = getSize();
+    if(gridSize) {
+        createGrid(gridSize);
+    }
+})
+
+document.getElementById("clear").addEventListener('click',clear);
+
+colorForm = document.getElementById("colorpicker");
+colorForm.addEventListener('input', ()=> {
+    color = colorForm.value;
+    random = false;
+})
+
+document.getElementById("random").addEventListener('click', () => {
+    random = true;
 })
