@@ -1,3 +1,8 @@
+function getRandomColor(){
+    return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
+}
+
+
 function createGrid(size) {
     sizeStr = String(Math.round(500/size))+'px';
 
@@ -32,7 +37,7 @@ function createGrid(size) {
         square.addEventListener('mouseover', () => {
             if(isMouseDown){
                 if(random){
-                    square.style.backgroundColor ="#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
+                    square.style.backgroundColor = getRandomColor();
                 }
                 else{
                     square.style.backgroundColor = color
@@ -41,7 +46,7 @@ function createGrid(size) {
         })
         square.addEventListener('mousedown', ()=> {
             if(random){
-                square.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0').toUpperCase();
+                square.style.backgroundColor = getRandomColor();
             }
             else{
                 square.style.backgroundColor = color
@@ -52,7 +57,7 @@ function createGrid(size) {
 
 
 function getSize(){
-    let text = prompt("Please enter your desired grid size (1-100)", "8");
+    let text = prompt("Please enter your desired canvas size (an integer from 1-100)", "8");
     let size = parseInt(text); 
     if(size){
         if(size >= 1 && size <= 100){
@@ -91,6 +96,15 @@ colorForm.addEventListener('input', ()=> {
     random = false;
 })
 
-document.getElementById("random").addEventListener('click', () => {
-    random = true;
+let randomButton = document.getElementById("random");
+randomButton.addEventListener('click', () => {
+    if(random){
+        random = false;
+        randomButton.style.backgroundColor = "#f0f0f0"
+    }
+    else{
+        random = true;
+        randomButton.style.backgroundColor = getRandomColor();
+
+    }
 })
