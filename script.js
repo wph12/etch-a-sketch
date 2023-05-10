@@ -76,7 +76,7 @@ function clear(){
 
 }
 
-var color = "#0000ff";
+var color = "#000000";
 var random = false;
 
 createGrid(8);
